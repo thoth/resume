@@ -1,0 +1,11 @@
+name: Resume
+description: Resume plugin for adding a work history or portfolio
+
+author: Thomas Rader
+authorEmail: thomas.rader@tigerclawtech.com
+authorUrl: http://tigerclawtech.com/croogo/plugins
+
+dependencies:
+  plugins:
+    - acl
+    - extensions
