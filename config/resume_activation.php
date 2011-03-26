@@ -52,64 +52,70 @@ class ResumeActivation {
 		$controller->Setting->write('Resume.state', '', array('editable' => 1, 'title' => 'State'));
 		$controller->Setting->write('Resume.postal_code', '', array('editable' => 1, 'title' => 'Postal Code'));
 		$controller->Setting->write('Resume.country', '', array('editable' => 1, 'title' => 'Country'));
-
-
-        // Add a table to the DB
-        App::import('Core', 'File');
-        App::import('Model', 'CakeSchema', false);
-		App::import('Model', 'ConnectionManager');
-
-		$db = ConnectionManager::getDataSource('default');
-		if(!$db->isConnected()) {
-			$this->Session->setFlash(__('Could not connect to database.', true));
-		} else {
-			$schema =& new CakeSchema(array('plugin'=>'resume','name'=>'resume'));
-			$schema = $schema->load();
-			foreach($schema->tables as $table => $fields) {
-				$create = $db->createSchema($schema, $table);
-				$db->execute($create);
-			} 
-		} 
 		
-		App::import('Model', 'Type');
-		$type = new Type();
-        $type->saveAll(array(
-	        array(
-	        	'Type'=>array(
-		            'title' => 'Jobs',
-		            'alias' => 'job',
-		            'comment_status' => 0,
-		            'format_show_author'=>0,
-		            'format_show_date'=>0,
-		            'description'=>'Jobs you have done.'
-	            ),
-	            'Vocabulary'=>array('Vocabulary'=>array(1,2))
-	        ),
-	        array(
-	            'Type'=>array(
-		            'title' => 'Certifications',
-		            'alias' => 'cert',
-		            'comment_status' => 0,
-		            'format_show_author'=>0,
-		            'format_show_date'=>0,
-		            'description'=>'Certifications you have acquired.'
-	            ),
-	            'Vocabulary'=>array('Vocabulary'=>array(1,2))
-	        
-        	),
-        	array(
-	            'Type'=>array(
-		            'title' => 'Degrees',
-		            'alias' => 'degree',
-		            'comment_status' => 0,
-		            'format_show_author'=>0,
-		            'format_show_date'=>0,
-		            'description'=>'Degrees you have obtained.'
-	            ),
-	            'Vocabulary'=>array('Vocabulary'=>array(1,2))
-	        
-	        )
-		));
+
+		$version  = $controller->Setting->read('Resume.version');
+		swtich($version){
+			default:
+		        // Add a table to the DB
+		        App::import('Core', 'File');
+		        App::import('Model', 'CakeSchema', false);
+				App::import('Model', 'ConnectionManager');
+		
+				$db = ConnectionManager::getDataSource('default');
+				if(!$db->isConnected()) {
+					$this->Session->setFlash(__('Could not connect to database.', true));
+				} else {
+					$schema =& new CakeSchema(array('plugin'=>'resume','name'=>'resume'));
+					$schema = $schema->load();
+					foreach($schema->tables as $table => $fields) {
+						$create = $db->createSchema($schema, $table);
+						$db->execute($create);
+					} 
+				} 
+				
+				App::import('Model', 'Type');
+				$type = new Type();
+		        $type->saveAll(array(
+			        array(
+			        	'Type'=>array(
+				            'title' => 'Jobs',
+				            'alias' => 'job',
+				            'comment_status' => 0,
+				            'format_show_author'=>0,
+				            'format_show_date'=>0,
+				            'description'=>'Jobs you have done.'
+			            ),
+			            'Vocabulary'=>array('Vocabulary'=>array(1,2))
+			        ),
+			        array(
+			            'Type'=>array(
+				            'title' => 'Certifications',
+				            'alias' => 'cert',
+				            'comment_status' => 0,
+				            'format_show_author'=>0,
+				            'format_show_date'=>0,
+				            'description'=>'Certifications you have acquired.'
+			            ),
+			            'Vocabulary'=>array('Vocabulary'=>array(1,2))
+			        
+		        	),
+		        	array(
+			            'Type'=>array(
+				            'title' => 'Degrees',
+				            'alias' => 'degree',
+				            'comment_status' => 0,
+				            'format_show_author'=>0,
+				            'format_show_date'=>0,
+				            'description'=>'Degrees you have obtained.'
+			            ),
+			            'Vocabulary'=>array('Vocabulary'=>array(1,2))
+			        
+			        )
+				));
+			break;
+		}
+		$controller->Setting->write('Resume.version', '1.0', array('editable' => 0, 'title' => 'Version'));
      
     }
 /**
