@@ -1,14 +1,13 @@
 <?php
 /**
- * Example Activation
+ * Resume Activation
  *
- * Activation class for Example plugin.
- * This is optional, and is required only if you want to perform tasks when your plugin is activated/deactivated.
+ * Activation class for Resume plugin.
  *
  * @package  Croogo
- * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
+ * @author   Thomas Rader <thomas.rader@tigerclawtech.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.croogo.org
+ * @link     http://www.tigerclawtech.com/portfolio/croogo-resume-plugin
  */
 class ResumeActivation {
 /**
