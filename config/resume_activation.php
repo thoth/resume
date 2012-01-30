@@ -54,7 +54,7 @@ class ResumeActivation {
 		
 
 		$version  = $controller->Setting->read('Resume.version');
-		swtich($version){
+		switch($version){
 			default:
 		        // Add a table to the DB
 		        App::import('Core', 'File');
